@@ -42,7 +42,10 @@ Real compute_error_bound_reward(SparseMatrix* ma, Real epsilon, Real tb) {
 	Real tau;
 	// TODO: add lambda to read in function
 	Real lambda=ma->max_exit_rate;
-	tau = (2*epsilon)/(tb*lambda*lambda);
+	if (lambda != 0.0 )
+		tau = (2*epsilon)/(tb*lambda*lambda);
+	else
+		tau = tb; // if lambda = 0, we have only states with self loop or deadlock states
 	return tau;
 }
 
